@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qos-viewer"
+version = "0.1.0"
+authors = [
+  { name="Omar Valerio", email="omar.valerio@mpinb.mpg.de" },
+]
+description = "A user-friendly Slurm QOS viewer for cluster environments."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: System :: Systems Administration",
+]
+dependencies = []
+
+[project.urls]
+"Homepage" = "https://github.com/mpinb/qos-viewer"
+"Bug Tracker" = "https://github.com/mpinb/qos-viewer/issues"
+
+[project.scripts]
+qos-viewer = "qos_viewer.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
