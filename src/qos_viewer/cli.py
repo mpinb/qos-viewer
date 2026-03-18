@@ -69,19 +69,33 @@ def print_row_format(headers, data):
 def print_examples():
     """Prints examples of how to use QOS in Slurm."""
     print("=== How to Use QOS ===")
-    print("You can request a specific QOS at job submission time using the --qos flag.\n")
+    print("Request a QOS and optionally a partition to ensure proper scheduling.\n")
+    print("You can also request a QOS at job submission time using the --qos flag.\n")
     
-    print("Example 1: Using sbatch in a submission script")
+    print("Example 1: Short Interactive GPU Session")
+    print("  Use this for quick debugging or testing on a GPU node.")
+    print("  srun --partition=GPU-interactive --qos=gpu-interactive-short --gres=gpu:1 --pty bash -i\n")
+    
+    print("Example 2: Submitting a job to the A100 Nodes")
     print("  #!/bin/bash")
-    print("  #SBATCH --job-name=my_job")
-    print("  #SBATCH --qos=gpu-long")
-    print("  #SBATCH --time=48:00:00")
-    print("  srun my_executable\n")
+    print("  #SBATCH --job-name=a100_training")
+    print("  #SBATCH --partition=GPU-a100")
+    print("  #SBATCH --qos=gpu-a100")
+    print("  #SBATCH --gres=gpu:1")
+    print("  #SBATCH --time=24:00:00")
+    print("  srun python train_model.py\n")
     
-    print("Example 2: Requesting an interactive session with srun")
-    print("  srun --qos=cpu-inter --pty bash -i\n")
+    print("Example 3: Using the Interruptible Queue")
+    print("  Lower priority jobs that can be preempted but allow for higher throughput.")
+    print("  #SBATCH --partition=interruptible")
+    print("  #SBATCH --qos=interruptible")
+    print("  #SBATCH --time=1-00:00:00")
+    print("  srun my_analysis_script.sh\n")
     
-    print("Example 3: Passing the flag via the sbatch command line")
+    print("Example 4: Requesting Specific GPU types (e.g., RTX Pro 6000)")
+    print("  sbatch --partition=GPU-rtx-pro-6000 --qos=gpu-rtx-pro-6000 --gres=gpu:1 script.sh\n")
+
+    print("Example 5: Passing the flag via the sbatch command line")
     print("  sbatch --qos=test my_script.sh\n")
 
 def main():
